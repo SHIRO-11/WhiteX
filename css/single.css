@@ -4,6 +4,9 @@
 .show-main-article {
     margin: 0 50px;
     text-align: left;
+    border: 1px solid rgb(200, 200, 200);
+    padding: 20px;
+    background-color: white;
 }
 
 /* 記事の日時 */
@@ -47,9 +50,16 @@
 ------------------------------------------------------*/
 .thumbnail {
     width: 100%;
-    height: auto;
+    max-height: 100% !important;
 }
 
 /*------------------------------------------------------
 サムネ表示ここまで
 ------------------------------------------------------*/
+
+
+@media (max-width: 768px) {
+    .show-main-article {
+        margin: 0 0px;
+    }
+}

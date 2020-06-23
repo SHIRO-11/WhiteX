@@ -220,9 +220,6 @@ nav {
  メイン
 ------------------------------------------------------*/
 
-.main-content {
-  margin-top: 60px;
-}
 
 
 
@@ -272,6 +269,8 @@ nav {
 
 .fixed-article h2 {
   padding: 15px 15px 5px 8px;
+  display: inline-block;
+  text-align: center;
   line-height: 1.5rem;
   text-align: left;
   font-size: 18px;
@@ -298,6 +297,7 @@ nav {
   display: flex;
   justify-content: center;
   background-color: white;
+  margin: 60px 0 100px 0;
 }
 
 .archive-title {
@@ -343,7 +343,8 @@ nav {
  投稿ここから
 ------------------------------------------------------*/
 .main-article {
-  width: 850px;
+  width: 100%;
+  margin: 0 20px 0 0;
   text-align: center;
 }
 
@@ -354,17 +355,13 @@ nav {
 
 .main-article img {
   max-width: 100%;
-}
-
-.show-main-article {
-  border: 1px solid rgb(200, 200, 200);
-  padding: 20px;
-  background-color: white;
+  max-height: 370px;
+  object-fit: cover;
 }
 
 .article-content {
   position: relative;
-  width: 40%;
+  width: 90%;
   display: inline-block;
   margin: 10px;
   background-color: #fff;
@@ -383,30 +380,47 @@ nav {
   transform: scale(1.05);
 }
 
-.article-content h2 {
-  padding: 15px 15px 0 8px;
-  margin-bottom: 0;
+.article-content .date {
+  padding: 30px;
+}
+
+.article-content h2.post-list-title {
+  padding: 5px 15px 5px 8px;
+  margin-bottom: 30px;
   line-height: 1.5rem;
-  text-align: left;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
 }
 
-/* .article-content h2::after {
-    content: "6月1日";
-    font-size: 14px;
-    text-align: right;
-    display: block;
-} */
+.article-content .post-category {
+  margin-bottom: 15px;
+}
+
+.article-content .post-category a {
+  color: #007bff;
+}
 
 .article-content img {
   width: 100%;
-  margin: 0 auto;
+  margin: 0;
 }
 
-.date {
-  text-align: right;
-  padding: 0 15px 0 0;
+/* 記事抜粋 */
+.excerpt {
+  padding: 15px 25px 0 25px;
+  font-size: 17px;
+}
+
+.excerpt p {
+  line-height: 2em;
+}
+
+/* 続きを読むボタン */
+.read-more a {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid #7b7b7b;
+  margin-bottom: 30px;
 }
 
 /*------------------------------------------------------
@@ -417,14 +431,70 @@ nav {
 ------------------------------------------------------*/
 .side-bar {
   width: 300px;
+  margin-right: 40px;
 }
 
 /*------------------------------------------------------
  サイドバーここまで
 ------------------------------------------------------*/
 
+/* ページネーション  */
+.posts-navigation {
+  margin-top: 3em;
+}
+
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.nav-links {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.nav-links:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.nav-previous a {
+  float: left;
+  border: 1px solid #7b7b7b;
+  padding: 20px;
+}
+
+.nav-next a {
+  float: right;
+  border: 1px solid #7b7b7b;
+  padding: 15px;
+}
+
+/* ページネーション ここまで */
+
 /*------------------------------------------------------
  メインここまで
+------------------------------------------------------*/
+
+/*------------------------------------------------------
+ メディアクエリ 1190pxここから
+------------------------------------------------------*/
+
+@media (max-width: 1190px) {
+  .main-article img {
+    max-width: 100%;
+    object-fit: fill;
+  }
+}
+
+/*------------------------------------------------------
+ メディアクエリ 1190pxここまで
 ------------------------------------------------------*/
 
 /*------------------------------------------------------
@@ -436,6 +506,7 @@ nav {
   /*------------------------------------------------------
  メイン
 ------------------------------------------------------*/
+
   /*------------------------------------------------------
  メインの固定投稿
 ------------------------------------------------------*/
@@ -497,7 +568,8 @@ nav {
 
   /* メインのボックス */
   .main-content {
-    width: 100%;
+    width: 95%;
+    margin: 60px auto;
     display: block;
     background-color: white;
   }
@@ -509,6 +581,16 @@ nav {
     width: 100%;
     display: block;
     text-align: center;
+  }
+
+  .main-article img {
+    max-width: 100%;
+  }
+
+  .show-main-article {
+    border: 1px solid rgb(200, 200, 200);
+    padding: 20px;
+    background-color: white;
   }
 
   /*------------------------------------------------------
@@ -623,6 +705,7 @@ nav {
   /*------------------------------------------------------
 投稿ここまで
 ------------------------------------------------------*/
+
   /*------------------------------------------------------
  サイドバーここから
 ------------------------------------------------------*/
