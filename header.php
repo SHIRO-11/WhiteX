@@ -28,16 +28,37 @@
 <body class="opacity">
     <header>
         <div id="logo">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/sample.jpg"
-                alt="サイトのロゴ" />
+            <img id="header-back-img"
+                src="<?php echo get_the_header_img_url(); ?>"
+                alt="ヘッダーの背景画像" />
+            <div id="logo-back-o"></div>
+            <img id="logo-img"
+                src="<?php echo get_the_logo_img_url(); ?>"
+                alt="ロゴ画像" />
+            <h1><?php bloginfo('name'); ?>
+            </h1>
+            <p><?php bloginfo('description'); ?>
+            </p>
         </div>
 
-        <?php
-        $args = array(
-            'theme_location'=>'main-menu',
-            'menu_class'=>'menu',
-            'container'=>'nav',
-        );
-        wp_nav_menu($args);
-        ?>
+        <div id="nav-drawer">
+            <input id="nav-input" type="checkbox" class="nav-unshown">
+            <label id="nav-open" for="nav-input">
+                <div class="nav-menu-wrap">
+                    <div>MENU</div><span></span>
+                </div>
+            </label>
+            <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+            <div id="nav-content"> <?php
+            $args = array(
+                'theme_location'=>'main-menu',
+                'menu_class'=>'menu',
+                'container'=>'nav',
+            );
+            wp_nav_menu($args);
+            ?>
+            </div>
+        </div>
+
+        </div>
     </header>

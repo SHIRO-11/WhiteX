@@ -21,9 +21,51 @@ add_theme_support('post-thumbnails');
 // カスタムメニュー機能を使用可能
 register_nav_menu('main-menu', 'Main Menu');
 
-//テーマカスタマイザーに項目を追加
+
+
+//追加したヘッダー画像を呼び出す処理
+function get_the_header_img_url()
+{
+    return esc_url(get_theme_mod('header_img'));
+}
+
+//追加したロゴ画像を呼び出す処理
+function get_the_logo_img_url()
+{
+    return esc_url(get_theme_mod('logo_img'));
+}
+
+
+
+//------------------------テーマカスタマイザーに項目を追加--------------
 function mytheme_customize_register($wp_customize)
 {
+    //画像を追加
+    //画像のセクション追加
+    $wp_customize->add_section('img_section', array(
+        'title' => 'ヘッダー画像', //セクションのタイトル
+        'priority' => 59, //セクションの位置
+        'description' => '画像をアップロードしてください。', //セクションの説明
+    ));
+
+    // ヘッダー背景を追加
+    $wp_customize->add_setting('header_img'); //設定項目を追加
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'header_img', array(
+            'label' => 'ヘッダー画像', //設定項目のタイトル
+            'section' => 'img_section', //追加するセクションのID
+            'settings' => 'header_img', //追加する設定項目のID
+            'description' => 'ロゴ画像を設定してください。', //設定項目の説明
+        )));
+
+    // ロゴ背景を追加
+    $wp_customize->add_setting('logo_img'); //設定項目を追加
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'logo_img', array(
+            'label' => 'ロゴ画像', //設定項目のタイトル
+            'section' => 'img_section', //追加するセクションのID
+            'settings' => 'logo_img', //追加する設定項目のID
+            'description' => 'ロゴ画像を設定してください。', //設定項目の説明
+        )));
+
 
     // セクションを追加
     $wp_customize->add_section(
@@ -104,8 +146,228 @@ function mytheme_customize_register($wp_customize)
             )
         )
     );
+
+    // ----------色系のカスタマイザーの設定---------
+
+    //背景色変更のセッティング＆コントロール
+    $wp_customize->add_setting('all_background_color', array(
+        'default' => '#f7f7f7',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'all_background_color', array(
+        'label' => '背景色',
+        'section' => 'colors',
+        'settings' => 'all_background_color',
+        'priority' => 1,
+    )));
+
+    //ヘッダーh1の文字色
+    $wp_customize->add_setting('header_h1_color', array(
+        'default' => '#7b7b7b',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'header_h1_color', array(
+        'label' => 'ヘッダータイトルの文字色',
+        'section' => 'colors',
+        'settings' => 'header_h1_color',
+        'priority' => 3,
+    )));
+
+
+    //説明の文字色
+    $wp_customize->add_setting('description_color', array(
+        'default' => '#7b7b7b',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'description_color', array(
+        'label' => 'ヘッダー説明文の文字色',
+        'section' => 'colors',
+        'settings' => 'description_color',
+        'priority' => 5,
+    )));
+
+
+
+    // アンダーラインの色を指定するセッティング&コントロール
+    $wp_customize->add_setting('under_line_color', array(
+        'default' => '#000',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'under_line_color', array(
+        'label' => 'サイドメニューとアーカイブ名のアンダーラインの色',
+        'section' => 'colors',
+        'settings' => 'under_line_color',
+        'priority' => 22,
+    )));
+
+    // ナビゲーション背景の色を指定するセッティング&コントロール
+    $wp_customize->add_setting('nav_background_color', array(
+        'default' => '#000',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nav_background_color', array(
+        'label' => 'ナビゲーション背景',
+        'section' => 'colors',
+        'settings' => 'nav_background_color',
+        'priority' => 20,
+    )));
+
+    // ナビゲーション の文字色
+
+    $wp_customize->add_setting('nav_text_color', array(
+        'default' => '#fff',
+    ));
+
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nav_text_color', array(
+        'label' => 'ナビゲーションの文字色',
+        'section' => 'colors',
+        'settings' => 'nav_text_color',
+        'priority' => 20,
+    )));
+
+
+    //ナビゲーションのhover時の文字色変更のセッティング＆コントロール
+    $wp_customize->add_setting('nav_hover_color', array(
+        'default' => '#7b7b7b',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nav_hover_color', array(
+        'label' => 'ナビゲーションhover時の文字色',
+        'section' => 'colors',
+        'settings' => 'nav_hover_color',
+        'priority' => 21,
+    )));
+
+    //ナビゲーションのhover時の背景色変更のセッティング＆コントロール
+    $wp_customize->add_setting('nav_hover_back_color', array(
+        'default' => '#fff',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'nav_hover_back_color', array(
+        'label' => 'ナビゲーションhover時の背景色',
+        'section' => 'colors',
+        'settings' => 'nav_hover_back_color',
+        'priority' => 23,
+    )));
+
+    //サイドバーhover時の文字色のセッティング＆コントロール
+    $wp_customize->add_setting('side_hover_text_color', array(
+        'default' => '#007bff',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'side_hover_text_color', array(
+        'label' => 'サイドバーのテキストhover時の文字色',
+        'section' => 'colors',
+        'settings' => 'side_hover_text_color',
+        'priority' => 30,
+    )));
 }
 add_action('customize_register', 'mytheme_customize_register');
+
+
+function customizer_color()
+{
+    //変数に各セクションの色を代入
+    $under_line_color = get_theme_mod('under_line_color', '#000');
+    $nav_background_color = get_theme_mod('nav_background_color', '#000');
+    $nav_hover_color = get_theme_mod('nav_hover_color', '#7b7b7b');
+    $nav_hover_back_color = get_theme_mod('nav_hover_back_color', '#fff');
+    $all_background_color = get_theme_mod('all_background_color', '#007bff');
+
+    $side_hover_text_color = get_theme_mod('side_hover_text_color', '#007bff');
+    $nav_text_color = get_theme_mod('nav_text_color', '#fff');
+    $description_color = get_theme_mod('description_color', '#7b7b7b');
+    $header_h1_color = get_theme_mod('header_h1_color', '#7b7b7b'); ?>
+
+
+
+<!-- headにスタイルシートを追加 -->
+<style type="text/css">
+    /* 背景色 */
+    body,
+    .main-wrapper,
+    .main-content,
+    .side-bar {
+        background-color:
+            <?php echo $all_background_color; ?>
+        ;
+    }
+
+    /* 説明文の文字色 */
+    #logo h1 {
+        color:
+            <?php echo $header_h1_color; ?>
+        ;
+    }
+
+    /* 説明文の文字色 */
+    #logo p {
+        color:
+            <?php echo $description_color; ?>
+        ;
+    }
+
+
+    /* アンダーラインの色のcss */
+    .new-archive-title:before,
+    .widget h3:before {
+        background-color:
+            <?php echo $under_line_color; ?>
+        ;
+    }
+
+    /* ナビゲーション背景のcss */
+    nav {
+        background-color:
+            <?php echo $nav_background_color; ?>
+        ;
+    }
+
+    /* ナビゲーションの文字色と右線のcss */
+    .menu>li>a {
+        color:
+            <?php echo $nav_text_color; ?>
+        ;
+    }
+
+    .menu>li {
+        border-right: 1px solid
+            <?php echo $nav_text_color; ?>
+    }
+
+    /* ナビゲーションhover時の文字色 */
+    .menu>li>a:hover,
+    .menu>li>ul>li:hover>a,
+    .menu>li>ul>li>ul>li:hover>a {
+        color:
+            <?php echo $nav_hover_color; ?>
+        ;
+    }
+
+    /* ナビゲーションhover時の背景色 */
+    .menu li::before {
+        background:
+            <?php echo $nav_hover_back_color; ?>
+        ;
+    }
+
+    /* サイドバーhover時の文字色 */
+    .widget:hover>h3,
+    .widget_categories>ul>li>a:hover,
+    .widget_categories>ul>li>ul>li>a:hover,
+    .widget_archive ul li a:hover {
+        color:
+            <?php echo $side_hover_text_color; ?>
+        ;
+    }
+</style>
+<?php
+}
+add_action('wp_head', 'customizer_color');
+
+
+
 
 
 /* 投稿一覧にIDの列を追加 */
@@ -162,6 +424,7 @@ function my_archive_title($title)
 };
 add_filter('get_the_archive_title', 'my_archive_title');
 
+//アーカイブタイトルを変更する
 function my_theme_archive_title($title)
 {
     if (is_post_type_archive() && !is_date()) {
