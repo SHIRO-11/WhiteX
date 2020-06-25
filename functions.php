@@ -35,12 +35,61 @@ function get_the_logo_img_url()
     return esc_url(get_theme_mod('logo_img'));
 }
 
+//追加したプロフィール画像を呼び出す処理
+function get_the_profile_img_url()
+{
+    return esc_url(get_theme_mod('profile_img'));
+}
 
 
 //------------------------テーマカスタマイザーに項目を追加--------------
 function mytheme_customize_register($wp_customize)
 {
-    //画像を追加
+
+    //----------プロフィールを追加---------------
+    //プロフィール画像のセクション
+    $wp_customize->add_section('profile_section', array(
+    'title' => 'プロフィール設定', //セクションのタイトル
+    'priority' => '59', //セクションの位置
+    'description' => 'プロフィールを編集してください', //セクションの説明
+    ));
+
+    //プロフィール画像
+    $wp_customize->add_setting('profile_img'); //設定項目を追加
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'profile_img', array(
+    'label' => 'プロフィール画像', //設定項目のタイトル
+    'section' => 'profile_section', //セクションのIDを指定
+    'settings' => 'profile_img', //セッティングのIDを指定
+    'description' => 'プロフィール画像を設定してください。' //設定項目の説明
+    )));
+
+    //アカウント名前
+    $wp_customize->add_setting('profile_name', array(
+    'default' => 'アカウントの名前', //デフォルトで入るテキスト
+    'type' => 'option', //入れておく
+    'transport' => 'postMessage', //表示更新のタイミング。デフォルトは'refresh'で即時反映
+    ));
+    $wp_customize->add_control('profile_name', array(
+    'label' => 'アカウント名', //設定項目のタイトル
+    'section' => 'profile_section', //セクションのIDを指定
+    'setting' => 'profile_name', //セッティングのIDを指定
+    'type' => 'text', //テキストを指定
+    ));
+
+    //自己紹介
+    $wp_customize->add_setting('profile_text', array(
+    'default' => '自己紹介', //デフォルトで入るテキスト
+    'type' => 'option', //入れておく
+    'transport' => 'postMessage', //表示更新のタイミング。デフォルトは'refresh'で即時反映
+    ));
+    $wp_customize->add_control('profile_text', array(
+    'label' => 'プロフィール文', //設定項目のタイトル
+    'section' => 'profile_section', //セクションのIDを指定
+    'setting' => 'profile_text', //セッティングのIDを指定
+    'type' => 'textarea', //テキストエリアを指定
+    ));
+
+    //----------ヘッダー画像を追加---------------
     //画像のセクション追加
     $wp_customize->add_section('img_section', array(
         'title' => 'ヘッダー画像', //セクションのタイトル
@@ -66,6 +115,8 @@ function mytheme_customize_register($wp_customize)
             'description' => 'ロゴ画像を設定してください。', //設定項目の説明
         )));
 
+
+    //----------トップページに固定する記事---------------
 
     // セクションを追加
     $wp_customize->add_section(
@@ -292,6 +343,11 @@ function customizer_color()
         background-color:
             <?php echo $all_background_color; ?>
         ;
+    }
+
+    .wprofile-img {
+        background-image: url("<?php echo get_the_profile_img_url(); ?>");
+        /* 表示する画像 */
     }
 
     /* 説明文の文字色 */
