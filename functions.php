@@ -3,17 +3,32 @@
 /**
  * ウィジェットエリアを定義します。
  */
-register_sidebar(array(
+    function bj_register_sidebars()
+    {
+        register_sidebar(array(
+            'id'            => 'primary-widget-area',
+            'name'          => 'サイドバー',
+            'description'   => 'サイドバーに表示されるウィジェットエリアです。',
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h3 class="widget-title">',
+            'after_title'   => '</h3>',
+        ));
 
-  'name'          => 'デモサイトのサイドバー',
-  'id'            => 'primary-widget-area',
-  'description'   => 'サイドバーに表示されるウィジェットエリアです。',
-  'before_widget' => '<section id="%1$s" class="widget %2$s">',
-  'after_widget'  => '</section>',
-  'before_title'  => '<h3 class="widget-title">',
-  'after_title'   => '</h3>',
 
-));
+        register_sidebar(array(
+            'id'            => 'fotter-widget-menu', //ウィジェットのID
+            'name'          => 'フッターメニュー', //ウィジェットの名前
+            'description'   => 'フッターに表示されるウィジェットエリアです。', //ウィジェットの説明文
+            'before_widget' => '<section id="%1$s" class="widget %2$s fotter-widget">', //ウィジェットを囲う開始タグ
+            'after_widget'  => '</section>', //ウィジェットを囲う終了タグ
+            'before_title'  => '<h3 class="fotter-widget-title">', //タイトルを囲う開始タグ
+            'after_title'   => '</h3>', //タイトルを囲う終了タグ
+        ));
+    }
+
+    add_action('widgets_init', 'bj_register_sidebars');
+
 
 // アイキャッチ画像を有効にする。
 add_theme_support('post-thumbnails');
@@ -47,7 +62,7 @@ function mytheme_customize_register($wp_customize)
 {
 
     //----------プロフィールを追加---------------
-    //プロフィール画像のセクション
+    //プロフィールのセクション
     $wp_customize->add_section('profile_section', array(
     'title' => 'プロフィール設定', //セクションのタイトル
     'priority' => '59', //セクションの位置
@@ -67,7 +82,6 @@ function mytheme_customize_register($wp_customize)
     $wp_customize->add_setting('profile_name', array(
     'default' => 'アカウントの名前', //デフォルトで入るテキスト
     'type' => 'option', //入れておく
-    'transport' => 'postMessage', //表示更新のタイミング。デフォルトは'refresh'で即時反映
     ));
     $wp_customize->add_control('profile_name', array(
     'label' => 'アカウント名', //設定項目のタイトル
@@ -80,7 +94,6 @@ function mytheme_customize_register($wp_customize)
     $wp_customize->add_setting('profile_text', array(
     'default' => '自己紹介', //デフォルトで入るテキスト
     'type' => 'option', //入れておく
-    'transport' => 'postMessage', //表示更新のタイミング。デフォルトは'refresh'で即時反映
     ));
     $wp_customize->add_control('profile_text', array(
     'label' => 'プロフィール文', //設定項目のタイトル
@@ -88,6 +101,20 @@ function mytheme_customize_register($wp_customize)
     'setting' => 'profile_text', //セッティングのIDを指定
     'type' => 'textarea', //テキストエリアを指定
     ));
+
+    //Twitterリンク
+    $wp_customize->add_setting('twitter_url_text', array(
+    'default' => '', //デフォルトで入るテキスト
+    'type' => 'option', //入れておく
+    ));
+    $wp_customize->add_control('twitter_url_text', array(
+    'label' => 'Twitterリンク', //設定項目のタイトル
+    'section' => 'profile_section', //セクションのIDを指定
+    'setting' => 'twitter_url_text', //セッティングのIDを指定
+    'type' => 'text', //テキストエリアを指定
+    ));
+
+
 
     //----------ヘッダー画像を追加---------------
     //画像のセクション追加
@@ -313,6 +340,43 @@ function mytheme_customize_register($wp_customize)
         'settings' => 'side_hover_text_color',
         'priority' => 30,
     )));
+
+    //フッターの背景色のセッティング＆コントロール
+    $wp_customize->add_setting('fotter_background_color', array(
+        'default' => '#f7f7f7',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'fotter_background_color', array(
+        'label' => 'フッターの背景色',
+        'section' => 'colors',
+        'settings' => 'fotter_background_color',
+        'priority' => 40,
+    )));
+
+    //コピーライトの文字色のセッティング＆コントロール
+    $wp_customize->add_setting('copyright_text_color', array(
+        'default' => '#f7f7f7',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'copyright_text_color', array(
+        'label' => 'コピーライトの文字色',
+        'section' => 'colors',
+        'settings' => 'copyright_text_color',
+        'priority' => 43,
+    )));
+
+
+    //コピーライトの背景色のセッティング＆コントロール
+    $wp_customize->add_setting('copyright_background_color', array(
+        'default' => '#000',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'copyright_background_color', array(
+        'label' => 'コピーライトの背景色',
+        'section' => 'colors',
+        'settings' => 'copyright_background_color',
+        'priority' => 45,
+    )));
 }
 add_action('customize_register', 'mytheme_customize_register');
 
@@ -329,7 +393,14 @@ function customizer_color()
     $side_hover_text_color = get_theme_mod('side_hover_text_color', '#007bff');
     $nav_text_color = get_theme_mod('nav_text_color', '#fff');
     $description_color = get_theme_mod('description_color', '#7b7b7b');
-    $header_h1_color = get_theme_mod('header_h1_color', '#7b7b7b'); ?>
+    $header_h1_color = get_theme_mod('header_h1_color', '#7b7b7b');
+    //フッターの背景色
+    $fotter_background_color = get_theme_mod('fotter_background_color', '#f7f7f7');
+    //コピーライトの文字色
+    $copyright_text_color = get_theme_mod('copyright_text_color', '#f7f7f7');
+
+    //コピーライトの背景色
+    $copyright_background_color = get_theme_mod('copyright_background_color', '#000'); ?>
 
 
 
@@ -367,7 +438,7 @@ function customizer_color()
 
     /* アンダーラインの色のcss */
     .new-archive-title:before,
-    .widget h3:before {
+    .widget .widget-title:before {
         background-color:
             <?php echo $under_line_color; ?>
         ;
@@ -409,12 +480,31 @@ function customizer_color()
     }
 
     /* サイドバーhover時の文字色 */
-    .widget:hover>h3,
+    .widget:hover h3,
     .widget_categories>ul>li>a:hover,
     .widget_categories>ul>li>ul>li>a:hover,
     .widget_archive ul li a:hover {
         color:
             <?php echo $side_hover_text_color; ?>
+        ;
+    }
+
+    footer {
+        background-color:
+            <?php echo $fotter_background_color; ?>
+        ;
+    }
+
+    #copyright {
+        background-color:
+            <?php echo $copyright_background_color; ?>
+        ;
+    }
+
+    #copyright p {
+        color:
+            <?php echo $copyright_text_color; ?>
+        ;
         ;
     }
 </style>

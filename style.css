@@ -57,7 +57,6 @@ img {
   }
 }
 
-
 /* ---------------- ヘッダー ----------------*/
 #logo {
   width: 100%;
@@ -113,8 +112,6 @@ img {
 
 /* ---------------- ヘッダーここまで ----------------*/
 
-
-
 /*---------------- グローバルナビゲーション ----------------*/
 nav {
   width: 100%;
@@ -142,7 +139,7 @@ nav {
   position: relative;
 }
 
-.menu>li {
+.menu > li {
   float: left;
   display: table-cell;
   text-align: center;
@@ -152,7 +149,7 @@ nav {
   border-right: 1px solid #fff;
 }
 
-.menu>li>a {
+.menu > li > a {
   display: block;
   color: #fff;
   transition: all 0.6s;
@@ -179,7 +176,7 @@ nav {
   transform: scale(1, 1);
 }
 
-.menu>li:hover>a {
+.menu > li:hover > a {
   color: #999;
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
@@ -206,24 +203,24 @@ nav {
   color: #7b7b7b;
 }
 
-.menu li:hover>ul>li {
+.menu li:hover > ul > li {
   height: 3rem;
   opacity: 1;
   overflow: visible;
 }
 
-.menu>li>ul>li a {
+.menu > li > ul > li a {
   transition: 0.7s;
   -webkit-transition: all 0.7s;
   -moz-transition: all 0.7s;
   -o-transition: all 0.7s;
 }
 
-.menu>li>ul>li:hover>a {
+.menu > li > ul > li:hover > a {
   color: #fff;
 }
 
-.menu>li>ul>li>ul>li:hover>a {
+.menu > li > ul > li > ul > li:hover > a {
   color: #fff;
 }
 
@@ -240,13 +237,12 @@ nav {
   overflow: hidden;
 }
 
-.menu>li:last-child ul li ul li {
+.menu > li:last-child ul li ul li {
   border-left: none;
   border-right: 1px solid #fff;
 }
 
 /*---------------- グローバルナビゲーションここまで ----------------*/
-
 
 /*---------------- メイン ----------------*/
 
@@ -276,12 +272,11 @@ nav {
   width: 360px;
   margin: 0 20px;
   background-color: #fff;
-  box-shadow: 3px 3px 10px rgba(75, 75, 75, 0.4);
   transition: all 1s;
   -webkit-transition: all 1s;
   -moz-transition: all 1s;
   -o-transition: all 1s;
-  border: 0.1px solid rgba(75, 75, 75, 0.5);
+  border: 0.1px solid rgba(75, 75, 75, 0.2);
 }
 
 .fixed-article:hover {
@@ -314,8 +309,6 @@ nav {
 }
 
 /*---------------- メインの固定投稿ここまで ----------------*/
-
-
 
 /*---------------- メインのボックス ----------------*/
 .main-content {
@@ -389,19 +382,17 @@ nav {
   display: inline-block;
   margin: 10px;
   background-color: #fff;
-  border: 0.1px solid rgba(75, 75, 75, 0.5);
-  box-shadow: 3px 3px 10px rgba(75, 75, 75, 0.4);
+  border: 0.1px solid rgba(75, 75, 75, 0.2);
   transition: all 0.6s;
   -webkit-transition: all 0.6s;
   -moz-transition: all 0.6s;
   -o-transition: all 0.6s;
-  border: 0.1px solid rgba(75, 75, 75, 0.5);
 }
 
 .article-content:hover {
   box-shadow: 0px 0px 20px 5px rgba(75, 75, 75, 0.4);
-  -webkit-transform: scale(1.03);
-  transform: scale(1.03);
+  -webkit-transform: scale(1.02);
+  transform: scale(1.02);
 }
 
 .article-content .date {
@@ -449,7 +440,6 @@ nav {
 
 /*---------------- 投稿ここまで ----------------*/
 
-
 /*------------------------------------------------------
  サイドバーここから
 ------------------------------------------------------*/
@@ -459,7 +449,6 @@ nav {
 }
 
 /* サイドバーここまで */
-
 
 /*------------------------------------------------------
 ページネーションここから
@@ -510,7 +499,6 @@ nav {
 /* メディアクエリ 1190pxここから */
 
 @media (max-width: 1190px) {
-
   /* ---------------- ヘッダー ----------------*/
 
   .main-article img {
@@ -521,14 +509,11 @@ nav {
 
 /* メディアクエリ 1190pxここまで */
 
-
-
 /*------------------------------------------------------
  メディアクエリ 768pxここから
 ------------------------------------------------------*/
 
 @media (max-width: 768px) {
-
   /* ---------------- ヘッダー ----------------*/
   #logo-img {
     position: absolute;
@@ -562,7 +547,6 @@ nav {
     -ms-transform: translate(-50%, -30%);
   }
 
-
   /*------------------------------------------------------
  メイン
 ------------------------------------------------------*/
@@ -581,7 +565,6 @@ nav {
     width: 480px;
     margin: 20px auto;
     background-color: #fff;
-    box-shadow: 3px 3px 10px rgba(75, 75, 75, 0.4);
     transition: all 1s;
     -webkit-transition: all 1s;
     -moz-transition: all 1s;
@@ -594,7 +577,7 @@ nav {
     background-color: #fff;
     box-shadow: 0px 0px 20px 5px rgba(75, 75, 75, 0.4);
     -webkit-transform: scale(1.05);
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
   .fixed-article h2 {
@@ -618,7 +601,7 @@ nav {
   /* .fixed-article img:hover {
     width: 300px;
     height: 170px;
-    -webkit-transform: scale(1.2);
+    -webkit-transform: scale(1.1);
     transform: scale(1.1);
 } */
 
@@ -722,7 +705,7 @@ nav {
     -ms-transform: scale(1.2) translate(-40%, -40%);
   }
 
-  .nav-menu-wrap>div {
+  .nav-menu-wrap > div {
     width: 80px;
     height: 25px;
     position: absolute;
@@ -800,13 +783,13 @@ nav {
   }
 
   /*チェックが入ったらもろもろ表示*/
-  #nav-input:checked~#nav-close {
+  #nav-input:checked ~ #nav-close {
     display: block;
     /*カバーを表示*/
     opacity: 0.5;
   }
 
-  #nav-input:checked~#nav-content {
+  #nav-input:checked ~ #nav-content {
     -webkit-transform: translateX(400px);
     transform: translateX(400px);
     /*中身を表示（右へスライド）*/
@@ -834,7 +817,6 @@ nav {
  メディアクエリ 480px
 ------------------------------------------------------*/
 @media (max-width: 480px) {
-
   /*-------------------- ヘッダー ------------------ */
   #logo-img {
     position: absolute;
@@ -868,7 +850,6 @@ nav {
     -ms-transform: translate(-50%, -20%);
   }
 
-
   /*------------------------------------------------------
  メイン
 ------------------------------------------------------*/
@@ -886,7 +867,6 @@ nav {
     width: 280px;
     margin: 20px auto;
     background-color: #fff;
-    box-shadow: 3px 3px 10px rgba(75, 75, 75, 0.4);
     transition: all 1s;
     -webkit-transition: all 1s;
     -moz-transition: all 1s;
@@ -923,7 +903,7 @@ nav {
   /* .fixed-article img:hover {
     width: 300px;
     height: 170px;
-    -webkit-transform: scale(1.2);
+    -webkit-transform: scale(1.1);
     transform: scale(1.1);
 } */
 

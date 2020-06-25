@@ -1,11 +1,11 @@
     <footer>
+        <?php dynamic_sidebar('fotter-widget-menu');//ウィジェットエリア「デモサイトのサイドバー」を表示する?>
         <div id="copyright">
-            Copyright &copy; 2016 Academy Corporation All Rights Reserved.
+            <p>Copyright &copy; <?php bloginfo('name'); ?>
+            </p>
         </div>
     </footer>
-    </body>
 
-    </html>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS, then Font Awesome -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
