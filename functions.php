@@ -36,6 +36,19 @@ add_theme_support('post-thumbnails');
 // カスタムメニュー機能を使用可能
 register_nav_menu('main-menu', 'Main Menu');
 
+//カスタムHTMLでPHPを使えるようにする
+function widget_text_exec_php($widget_text)
+{
+    if (strpos($widget_text, '<' . '?') !== false) {
+        ob_start();
+        eval('?>' . $widget_text);
+        $widget_text = ob_get_contents();
+        ob_end_clean();
+    }
+    return $widget_text;
+}
+add_filter('widget_text', 'widget_text_exec_php', 99);
+
 
 
 //追加したヘッダー画像を呼び出す処理

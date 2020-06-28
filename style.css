@@ -1,8 +1,8 @@
 /*
-Theme Name: shinon
+Theme Name: Shinobi X
 Author: SHIRO
 Description: 自分で作った自分専用のテーマである。
-Version: 1.0
+Version: 2.0
 */
 
 body {
@@ -94,6 +94,9 @@ img {
 
 #logo h1 {
   position: absolute;
+  text-align: center;
+  width: 100%;
+  font-size: 26px;
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -139,7 +142,7 @@ nav {
   position: relative;
 }
 
-.menu > li {
+.menu>li {
   float: left;
   display: table-cell;
   text-align: center;
@@ -149,7 +152,7 @@ nav {
   border-right: 1px solid #fff;
 }
 
-.menu > li > a {
+.menu>li>a {
   display: block;
   color: #fff;
   transition: all 0.6s;
@@ -176,7 +179,7 @@ nav {
   transform: scale(1, 1);
 }
 
-.menu > li:hover > a {
+.menu>li:hover>a {
   color: #999;
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
@@ -203,24 +206,24 @@ nav {
   color: #7b7b7b;
 }
 
-.menu li:hover > ul > li {
+.menu li:hover>ul>li {
   height: 3rem;
   opacity: 1;
   overflow: visible;
 }
 
-.menu > li > ul > li a {
+.menu>li>ul>li a {
   transition: 0.7s;
   -webkit-transition: all 0.7s;
   -moz-transition: all 0.7s;
   -o-transition: all 0.7s;
 }
 
-.menu > li > ul > li:hover > a {
+.menu>li>ul>li:hover>a {
   color: #fff;
 }
 
-.menu > li > ul > li > ul > li:hover > a {
+.menu>li>ul>li>ul>li:hover>a {
   color: #fff;
 }
 
@@ -237,7 +240,7 @@ nav {
   overflow: hidden;
 }
 
-.menu > li:last-child ul li ul li {
+.menu>li:last-child ul li ul li {
   border-left: none;
   border-right: 1px solid #fff;
 }
@@ -359,9 +362,10 @@ nav {
 }
 
 /*---------------- 投稿ここから ----------------*/
+
 .main-article {
   width: 100%;
-  margin: 0 20px 0 0;
+  margin: 0;
   text-align: center;
 }
 
@@ -378,9 +382,9 @@ nav {
 
 .article-content {
   position: relative;
-  width: 90%;
+  width: 85%;
   display: inline-block;
-  margin: 10px;
+  margin: 10px 0;
   background-color: #fff;
   border: 0.1px solid rgba(75, 75, 75, 0.2);
   transition: all 0.6s;
@@ -438,13 +442,79 @@ nav {
   margin-bottom: 30px;
 }
 
+/* 関連記事 */
+.related-wrapper {
+  text-align: center;
+}
+
+.related-wrapper h4 {
+  text-align: left;
+}
+
+.related-article {
+  width: 45%;
+  margin: 0 5px 20px;
+  padding: 0 10px 15px;
+  display: inline-block;
+  vertical-align: top;
+  border: 0.1px solid rgba(75, 75, 75, 0.2);
+  transition: all 0.6s;
+  -webkit-transition: all 0.6s;
+  -moz-transition: all 0.6s;
+  -o-transition: all 0.6s;
+}
+
+.related-article:hover {
+  box-shadow: 0px 0px 20px 5px rgba(75, 75, 75, 0.4);
+  -webkit-transform: scale(1.02);
+  transform: scale(1.02);
+}
+
+
+.related-article img {
+  width: 100%;
+  height: 56%;
+}
+
+.related-article .post-title a {
+  color: #007bff;
+}
+
+.related-article .post-title a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.related-post-category ul {
+  list-style: none;
+  text-align: right;
+  margin: 0;
+}
+
+.related-post-category ul li {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px;
+  background-color: #f0f0f0;
+}
+
+.related-post-category ul li a {
+  color: #7b7b7b;
+}
+
+/* 投稿がなかったとき */
+
+.no-content a {
+  color: #007bff;
+}
+
 /*---------------- 投稿ここまで ----------------*/
 
 /*------------------------------------------------------
  サイドバーここから
 ------------------------------------------------------*/
 .side-bar {
-  width: 300px;
+  width: 400px;
   margin-right: 40px;
 }
 
@@ -514,6 +584,7 @@ nav {
 ------------------------------------------------------*/
 
 @media (max-width: 768px) {
+
   /* ---------------- ヘッダー ----------------*/
   #logo-img {
     position: absolute;
@@ -529,7 +600,7 @@ nav {
 
   #logo h1 {
     position: absolute;
-    font-size: 26px;
+    font-size: 24px;
     top: 60%;
     left: 50%;
     transform: translate(-50%, -45%);
@@ -597,13 +668,6 @@ nav {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
-
-  /* .fixed-article img:hover {
-    width: 300px;
-    height: 170px;
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-} */
 
   /*------------------------------------------------------
  メインの固定投稿ここまで
@@ -705,7 +769,7 @@ nav {
     -ms-transform: scale(1.2) translate(-40%, -40%);
   }
 
-  .nav-menu-wrap > div {
+  .nav-menu-wrap>div {
     width: 80px;
     height: 25px;
     position: absolute;
@@ -783,13 +847,13 @@ nav {
   }
 
   /*チェックが入ったらもろもろ表示*/
-  #nav-input:checked ~ #nav-close {
+  #nav-input:checked~#nav-close {
     display: block;
     /*カバーを表示*/
     opacity: 0.5;
   }
 
-  #nav-input:checked ~ #nav-content {
+  #nav-input:checked~#nav-content {
     -webkit-transform: translateX(400px);
     transform: translateX(400px);
     /*中身を表示（右へスライド）*/
@@ -817,6 +881,7 @@ nav {
  メディアクエリ 480px
 ------------------------------------------------------*/
 @media (max-width: 480px) {
+
   /*-------------------- ヘッダー ------------------ */
   #logo-img {
     position: absolute;
@@ -832,7 +897,7 @@ nav {
 
   #logo h1 {
     position: absolute;
-    font-size: 20px;
+    font-size: 18px;
     top: 68%;
     left: 50%;
     transform: translate(-50%, -32%);

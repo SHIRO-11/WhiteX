@@ -63,9 +63,10 @@
     <?php endif;?>
     <?php endif; ?>
 
-    <?php if (have_posts()) : //条件分岐：投稿があるなら?>
     <div class="main-content">
         <div class="main-article">
+            <?php if (have_posts()) : //条件分岐：投稿があるなら?>
+
             <h1 class="new-archive-title">最新の投稿</h1>
             <?php while (have_posts()) : the_post(); //繰り返し処理開始?>
             <a href="<?php the_permalink(); //投稿（固定ページ）のリンクを取得?>">
@@ -117,19 +118,21 @@
                 </div>
             </div>
 
+
+            <?php else : //条件分岐：投稿が無い場合は?>
+            <div class="no-content">
+                <h2>投稿がみつかりません。</h2>
+                <p><a
+                        href="<?php echo esc_url(home_url('/')); ?>">トップページに戻る</a>
+                </p>
+            </div>
+
+
+            <?php endif; //条件分岐終了?>
         </div>
-        <?php else : //条件分岐：投稿が無い場合は?>
 
-        <h2>投稿がみつかりません。</h2>
-        <p><a
-                href="<?php echo esc_url(home_url('/')); ?>">トップページに戻る</a>
-        </p>
+        <?php get_sidebar(); //sidebar.phpを取得?>
     </div>
-
-
-    <?php endif; //条件分岐終了?>
-
-    <?php get_sidebar(); //sidebar.phpを取得?>
 
 </div>
 

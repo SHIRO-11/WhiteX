@@ -7,7 +7,7 @@ footer {
     width: 30%;
     display: inline-block;
     vertical-align: top;
-    margin: 10px 10px !important;
+    margin: 50px 10px !important;
     /* 上端を揃える */
 }
 
@@ -55,6 +55,16 @@ footer {
         display: block;
         margin: 30px auto !important;
     }
+
+    #copyright p {
+        margin: 0;
+        padding: 20px 0;
+    }
 }
 
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+    #copyright p {
+        margin: 0;
+        padding: 20px 0;
+    }
+}
