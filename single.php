@@ -1,6 +1,6 @@
 <?php get_header(); //header.phpを取得?>
 <div id="content" class="main-content">
-    <div class="main-article show-main-article">
+    <div class="show-main-article">
         <?php if (have_posts()) : //条件分岐：投稿があるなら?>
         <?php while (have_posts()) : the_post(); //繰り返し処理開始?>
 
@@ -58,14 +58,16 @@
             <div class="related-article">
                 <a href="<?php the_permalink(); ?>">
                     <?php if (has_post_thumbnail()): ?>
-                    <?php the_post_thumbnail() ?>
+                    <?php the_post_thumbnail(array( 780, 468 )); ?>
                     <?php else: ?>
                     <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.jpg"
                         alt="no-image" />
                     <?php endif; ?>
                 </a>
                 <div class="post-title">
-                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    <h5>
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    </h5>
                 </div>
                 <div class="related-post-category">
                     <?php the_category(); ?>

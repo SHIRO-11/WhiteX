@@ -11,8 +11,8 @@
             'description'   => 'サイドバーに表示されるウィジェットエリアです。',
             'before_widget' => '<section id="%1$s" class="widget %2$s">',
             'after_widget'  => '</section>',
-            'before_title'  => '<h3 class="widget-title">',
-            'after_title'   => '</h3>',
+            'before_title'  => '<h4 class="widget-title">',
+            'after_title'   => '</h4>',
         ));
 
 
@@ -22,8 +22,8 @@
             'description'   => 'フッターに表示されるウィジェットエリアです。', //ウィジェットの説明文
             'before_widget' => '<section id="%1$s" class="widget %2$s fotter-widget">', //ウィジェットを囲う開始タグ
             'after_widget'  => '</section>', //ウィジェットを囲う終了タグ
-            'before_title'  => '<h3 class="fotter-widget-title">', //タイトルを囲う開始タグ
-            'after_title'   => '</h3>', //タイトルを囲う終了タグ
+            'before_title'  => '<h4 class="fotter-widget-title">', //タイトルを囲う開始タグ
+            'after_title'   => '</h4>', //タイトルを囲う終了タグ
         ));
     }
 
@@ -32,6 +32,107 @@
 
 // アイキャッチ画像を有効にする。
 add_theme_support('post-thumbnails');
+
+/* -----------ウィジットエリアの項目に値を追加-------------*/
+class My_Widget extends WP_Widget
+{
+    //コンストラクタ
+    //自作ウィジェットを登録するみたいな感じ
+    public function My_Widget()
+    {
+        parent::WP_Widget(
+            false,
+            $name = 'オススメ記事',
+            array( 'description' => 'サイドバーに表示する記事を設定', )
+        );
+    }
+
+    //管理画面の設定とか表示用コードを書く
+    public function form($instance)
+    {
+        ?>
+<p>
+    <label
+        for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+    <input type="text" class="widefat"
+        id="<?php echo $this->get_field_id('title'); ?>"
+        name="<?php echo $this->get_field_name('title'); ?>"
+        value="<?php echo esc_attr($instance['title']); ?>">
+</p>
+<p>
+    <label
+        for="<?php echo $this->get_field_id('limit'); ?>"><?php _e('表示する投稿数:'); ?></label>
+    <input type="text"
+        id="<?php echo $this->get_field_id('limit'); ?>"
+        name="<?php echo $this->get_field_name('limit'); ?>"
+        value="<?php echo esc_attr($instance['limit']); ?>"
+        size="3">
+</p>
+<?php
+    }
+
+    //管理画面で設定を変更した時の処理を書く
+    public function update($new_instance, $old_instance)
+    {
+        $instance = $old_instance;
+        $instance['title'] = strip_tags($new_instance['title']);
+        $instance['limit'] = is_numeric($new_instance['limit']) ? $new_instance['limit'] : 5;
+        return $instance;
+    }
+
+    //　ウィジェットを配置した時の表示用コードを書く
+    // 実際に画面に表示するHMML
+    public function widget($args, $instance)
+    {
+        extract($args);
+ 
+        if ($instance['title'] != '') {
+            $title = apply_filters('widget_title', $instance['title']);
+        }
+        echo $before_widget;
+        if ($title) {
+            echo $before_title . $title . $after_title;
+        } ?>
+<ul class="img-new-post clearfix">
+    <?php
+        $args = array(
+        'posts_per_page' => $instance['limit'],
+        'meta_query' => array(
+            array('key'=>'recommend_post', 'value'=>'1', 'compare'=>'=')
+        ),
+        );
+
+        query_posts($args);
+        if (have_posts()):
+        while (have_posts()): the_post(); ?>
+    <li>
+        <?php if (has_post_thumbnail()): ?>
+        <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(array(400,400)); ?></a>
+        <?php else: ?>
+        <a href="<?php the_permalink(); ?>"><img
+                src="<?php bloginfo('template_url'); ?>/images/no-image.jpg"
+                alt=""></a>
+        <?php endif; ?>
+        <div>
+            <p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><br><span
+                    class="img-new-post-date"><?php echo get_the_date('Y/n/j'); ?></span>
+            </p>
+        </div>
+    </li>
+    <?php endwhile;
+        endif; ?>
+</ul>
+<?php
+    echo $after_widget;
+    }
+}
+
+//自作ウィジェットを使えるようにする処理
+register_widget('My_Widget');
+
+// -----------ここまでウィジットエリアの項目に値を追加-------------
+
+
 
 // カスタムメニュー機能を使用可能
 register_nav_menu('main-menu', 'Main Menu');
@@ -69,6 +170,14 @@ function get_the_profile_img_url()
     return esc_url(get_theme_mod('profile_img'));
 }
 
+// css、jsを読み込み
+function my_prism()
+{
+    wp_enqueue_style('prism-style', get_stylesheet_directory_uri() . '/css/prism.css');
+    wp_enqueue_script('prism-script', get_stylesheet_directory_uri() . '/js/prism.js', array('jquery'), '1.9.0', true);
+}
+add_action('wp_enqueue_scripts', 'my_prism');
+
 
 //------------------------テーマカスタマイザーに項目を追加--------------
 function mytheme_customize_register($wp_customize)
@@ -94,7 +203,7 @@ function mytheme_customize_register($wp_customize)
     //アカウント名前
     $wp_customize->add_setting('profile_name', array(
     'default' => 'アカウントの名前', //デフォルトで入るテキスト
-    'type' => 'option', //入れておく
+    'type' => 'option', //とりあえずoptionでOK
     ));
     $wp_customize->add_control('profile_name', array(
     'label' => 'アカウント名', //設定項目のタイトル
@@ -106,7 +215,7 @@ function mytheme_customize_register($wp_customize)
     //自己紹介
     $wp_customize->add_setting('profile_text', array(
     'default' => '自己紹介', //デフォルトで入るテキスト
-    'type' => 'option', //入れておく
+    'type' => 'option', //とりあえずoptionでOK
     ));
     $wp_customize->add_control('profile_text', array(
     'label' => 'プロフィール文', //設定項目のタイトル
@@ -118,7 +227,7 @@ function mytheme_customize_register($wp_customize)
     //Twitterリンク
     $wp_customize->add_setting('twitter_url_text', array(
     'default' => '', //デフォルトで入るテキスト
-    'type' => 'option', //入れておく
+    'type' => 'option', //とりあえずoptionでOK
     ));
     $wp_customize->add_control('twitter_url_text', array(
     'label' => 'Twitterリンク', //設定項目のタイトル
@@ -435,7 +544,8 @@ function customizer_color()
     }
 
     /* 説明文の文字色 */
-    #logo h1 {
+    #logo h1,
+    #logo #logo-site-title {
         color:
             <?php echo $header_h1_color; ?>
         ;
@@ -493,7 +603,7 @@ function customizer_color()
     }
 
     /* サイドバーhover時の文字色 */
-    .widget:hover h3,
+    .widget:hover h4,
     .widget_categories>ul>li>a:hover,
     .widget_categories>ul>li>ul>li>a:hover,
     .widget_archive ul li a:hover {
@@ -598,3 +708,102 @@ function my_theme_archive_title($title)
 }
 
 add_filter('get_the_archive_title', 'my_theme_archive_title');
+
+//ショートコードのpタグ自動整形を解除
+remove_filter('the_content', 'wpautop');
+add_filter('the_content', 'wpautop', 99);
+add_filter('the_content', 'shortcode_unautop', 100);
+
+
+// ショートコード
+function speakFunc($atts, $content = null)
+{
+    extract(shortcode_atts(array(
+        'align' => 'right',
+        'face' =>'none',
+        'name'=>'',
+    ), $atts));
+     
+    return '<div class="balloon-simple"><div class="icon-'.$align.'"><img src="'.$face.'" alt="吹き出しの画像"><p>'.$name.'</p></div><div class="balloon"><div class="serif-'.$align.'"><p>'.$content.'</p></div></div></div>';
+}
+add_shortcode('chat', 'speakFunc');
+
+
+
+//------------カスタムフィールドに追加--------------
+function add_seo_custom_fields()
+{
+    //固定投稿でも記事でも対応できるように配列に渡す
+    $screen = array('page' , 'post');
+    //add_meta_box(表示される入力ボックスのHTMLのID, ラベル, 表示する内容を作成する関数名, 投稿タイプ, 表示方法)
+    //第4引数のpostをpageに変更すれば固定ページにオリジナルカスタムフィールドが表示されます(custom_post_typeのslugを指定することも可能)。
+    //第5引数はnormalの他にsideとadvancedがあります。
+    add_meta_box('seo_setting', 'SEO', 'seo_custom_fields', $screen);
+}
+
+// カスタムフィールドの入力エリア
+function seo_custom_fields()
+{
+    global $post;
+    $meta_keywords = get_post_meta($post->ID, 'meta_keywords', true);
+    $noindex = get_post_meta($post->ID, 'noindex', true);
+    $recommend_post = get_post_meta($post->ID, 'recommend_post', true);
+    if ($noindex==1) {
+        $noindex_check="checked";
+    } else {
+        $noindex_check= "/";
+    }
+    if ($recommend_post==1) {
+        $recommend_post="checked";
+    } else {
+        $recommend_post= "/";
+    }
+
+    echo '<p>meta keywordを設定 半角カンマ区切りで入力<br />';
+    echo '<input type="text" name="meta_keywords" value="'.esc_html($meta_keywords).'" size="80" /></p>';
+    echo '<p>低品質コンテンツの場合はチェック<br>';
+    echo '<input type="checkbox" name="noindex" value="1" ' . $noindex_check . '> noindex</p>';
+    echo '<p>おすすめ記事<br>';
+    echo '<input type="checkbox" name="recommend_post" value="1"' . $recommend_post . '> </p>';
+}
+ 
+function save_seo_custom_fields($post_id)
+{
+    if (!empty($_POST['meta_keywords'])) {
+        update_post_meta($post_id, 'meta_keywords', $_POST['meta_keywords']);
+    } else {
+        delete_post_meta($post_id, 'meta_keywords');
+    }
+ 
+    if (!empty($_POST['noindex'])) {
+        update_post_meta($post_id, 'noindex', $_POST['noindex']);
+    } else {
+        delete_post_meta($post_id, 'noindex');
+    }
+
+    if (!empty($_POST['recommend_post'])) {
+        update_post_meta($post_id, 'recommend_post', $_POST['recommend_post']);
+    } else {
+        delete_post_meta($post_id, 'recommend_post');
+    }
+}
+add_action('admin_menu', 'add_seo_custom_fields');
+add_action('save_post', 'save_seo_custom_fields');
+
+
+// エディタ切り替えでの自動整形をなくす
+function override_mce_options($init_array)
+{
+    global $allowedposttags;
+
+    $init_array['valid_elements']          = '*[*]';
+    $init_array['extended_valid_elements'] = '*[*]';
+    $init_array['valid_children']          = '+a[' . implode('|', array_keys($allowedposttags)) . ']';
+    $init_array['indent']                  = true;
+    $init_array['wpautop']                 = false;
+    $init_array['force_p_newlines']        = false;
+
+    return $init_array;
+}
+
+add_filter('tiny_mce_before_init', 'override_mce_options');

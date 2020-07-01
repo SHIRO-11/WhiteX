@@ -5,7 +5,7 @@
     border: 0.1px solid rgba(75, 75, 75, 0.2);
 }
 
-.widget h3 {
+.widget h4 {
     color: #7b7b7b;
     font-size: 23px;
     position: relative;
@@ -106,7 +106,7 @@
 
 /* 検索フォーム */
 
-.widget_search h3 {
+.widget_search h4 {
     display: none;
 }
 

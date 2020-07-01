@@ -2,6 +2,7 @@
 ?>
 
 <div class="main-wrapper">
+
     <?php if (is_home() || is_front_page()) : ?>
     <?php
     $page_id_1 =  get_theme_mod('fixed_post-1', true);
@@ -67,7 +68,7 @@
         <div class="main-article">
             <?php if (have_posts()) : //条件分岐：投稿があるなら?>
 
-            <h1 class="new-archive-title">最新の投稿</h1>
+            <p class="new-archive-title">最新の投稿</p>
             <?php while (have_posts()) : the_post(); //繰り返し処理開始?>
             <a href="<?php the_permalink(); //投稿（固定ページ）のリンクを取得?>">
                 <!-- 1つずつの記事 -->

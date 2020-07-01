@@ -21,12 +21,6 @@
                 <?php the_content(); //投稿（固定ページ）の本文を表示?>
             </div>
         </section>
-        <section class="clearfix">
-            <div class="leftcol"><?php next_post_link('%link', '&laquo; 新しい投稿へ'); //新しい記事へのリンクを表示?>
-            </div>
-            <div class="rightcol"><?php previous_post_link('%link', '古い投稿へ &raquo;'); //古い記事へのリンクを表示?>
-            </div>
-        </section>
 
         <?php endwhile; // 繰り返し終了?>
         <?php else : //条件分岐：投稿が無い場合は?>
