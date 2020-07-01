@@ -4,10 +4,23 @@
 .show-main-article {
     margin: 0 50px;
     height: 100%;
+    width: 75%;
+    max-width: 800px;
     text-align: left;
     border: 1px solid rgb(200, 200, 200);
     padding: 20px;
     background-color: white;
+}
+
+.show-main-article a {
+    color: #7b7b7b;
+    text-decoration: none;
+}
+
+.show-main-article img {
+    max-width: 100%;
+    max-height: 370px;
+    object-fit: cover;
 }
 
 /* 記事の日時 */
@@ -58,9 +71,15 @@
 サムネ表示ここまで
 ------------------------------------------------------*/
 
+@media (max-width: 1190px) {
+    .show-main-article {
+        width: 60%;
+    }
+}
 
 @media (max-width: 768px) {
     .show-main-article {
-        margin: 0 0px;
+        margin: 0px;
+        width: 100%;
     }
 }

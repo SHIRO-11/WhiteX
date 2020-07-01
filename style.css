@@ -531,24 +531,6 @@ nav {
 
 /*---------------- 投稿ここから ----------------*/
 
-
-.show-main-article {
-  width: 70%;
-  margin: 0;
-  text-align: center;
-}
-
-.show-main-article a {
-  color: #7b7b7b;
-  text-decoration: none;
-}
-
-.show-main-article img {
-  max-width: 100%;
-  max-height: 370px;
-  object-fit: cover;
-}
-
 .article-content {
   position: relative;
   width: 85%;
@@ -688,7 +670,8 @@ nav {
  サイドバーここから
 ------------------------------------------------------*/
 .side-bar {
-  width: 30%;
+  width: 25%;
+  max-width: 350px;
   margin-right: 40px;
 }
 
@@ -743,12 +726,11 @@ nav {
 /* メディアクエリ 1190pxここから */
 
 @media (max-width: 1190px) {
+
   /* ---------------- ヘッダー ----------------*/
-
-}
-
-.article-content img {
-  height: 280px;
+  .article-content img {
+    height: 280px;
+  }
 }
 
 /* メディアクエリ 1190pxここまで */
@@ -916,9 +898,6 @@ nav {
 
   /* 記事の詳細ページ */
   .show-main-article {
-    border: 1px solid rgb(200, 200, 200);
-    padding: 20px;
-    background-color: white;
     width: 100%;
     display: block;
     text-align: center;

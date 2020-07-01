@@ -93,7 +93,7 @@ class My_Widget extends WP_Widget
         if ($title) {
             echo $before_title . $title . $after_title;
         } ?>
-<ul class="img-new-post clearfix">
+<ul class="recommend-post">
     <?php
         $args = array(
         'posts_per_page' => $instance['limit'],
@@ -114,9 +114,7 @@ class My_Widget extends WP_Widget
                 alt=""></a>
         <?php endif; ?>
         <div>
-            <p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><br><span
-                    class="img-new-post-date"><?php echo get_the_date('Y/n/j'); ?></span>
-            </p>
+            <h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
         </div>
     </li>
     <?php endwhile;
