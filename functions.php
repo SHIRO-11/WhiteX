@@ -1,5 +1,15 @@
 <?php
 
+if (! function_exists('twentynineteen_setup')) :
+    function twentynineteen_setup()
+    {
+        add_theme_support('editor-styles');
+        add_editor_style('style-editor.css');
+    }
+endif;
+add_action('after_setup_theme', 'twentynineteen_setup');
+
+
 /**
  * ウィジェットエリアを定義します。
  */
@@ -38,9 +48,9 @@ class My_Widget extends WP_Widget
 {
     //コンストラクタ
     //自作ウィジェットを登録するみたいな感じ
-    public function My_Widget()
+    public function __construct()
     {
-        parent::WP_Widget(
+        parent::__construct(
             false,
             $name = 'オススメ記事',
             array( 'description' => 'サイドバーに表示する記事を設定', )
@@ -573,28 +583,28 @@ function customizer_color()
     }
 
     /* ナビゲーションの文字色と右線のcss */
-    .menu>li>a {
+    nav .menu>li>a {
         color:
             <?php echo $nav_text_color; ?>
         ;
     }
 
-    .menu>li {
+    nav .menu>li {
         border-right: 1px solid
             <?php echo $nav_text_color; ?>
     }
 
     /* ナビゲーションhover時の文字色 */
-    .menu>li>a:hover,
-    .menu>li>ul>li:hover>a,
-    .menu>li>ul>li>ul>li:hover>a {
+    nav .menu>li>a:hover,
+    nav .menu>li>ul>li:hover>a,
+    nav .menu>li>ul>li>ul>li:hover>a {
         color:
             <?php echo $nav_hover_color; ?>
         ;
     }
 
     /* ナビゲーションhover時の背景色 */
-    .menu li::before {
+    nav .menu li::before {
         background:
             <?php echo $nav_hover_back_color; ?>
         ;
@@ -713,18 +723,7 @@ add_filter('the_content', 'wpautop', 99);
 add_filter('the_content', 'shortcode_unautop', 100);
 
 
-// ショートコード
-function speakFunc($atts, $content = null)
-{
-    extract(shortcode_atts(array(
-        'align' => 'right',
-        'face' =>'none',
-        'name'=>'',
-    ), $atts));
-     
-    return '<div class="balloon-simple"><div class="icon-'.$align.'"><img src="'.$face.'" alt="吹き出しの画像"><p>'.$name.'</p></div><div class="balloon"><div class="serif-'.$align.'"><p>'.$content.'</p></div></div></div>';
-}
-add_shortcode('chat', 'speakFunc');
+
 
 
 
@@ -805,3 +804,161 @@ function override_mce_options($init_array)
 }
 
 add_filter('tiny_mce_before_init', 'override_mce_options');
+
+
+
+
+
+// 記事IDを指定して抜粋文を取得
+function ltl_get_the_excerpt($post_id)
+{
+    global $post;
+    $post_bu = $post;
+    $post = get_post($post_id);
+    setup_postdata($post_id);
+    $output = get_the_excerpt();
+    $post = $post_bu;
+    return $output;
+}
+
+// -------------ショートコード----------------
+
+// 吹き出し枠
+function speakFunc($atts, $content = null)
+{
+    extract(shortcode_atts(array(
+        'align' => 'right',
+        'face' =>'none',
+        'name'=>'',
+        'border'=>'none',
+        'bg'=>''
+    ), $atts));
+     
+    return '<div class="balloon-simple"><div class="icon-'.$align.' ' .$border. '"><img src="'.$face.'" alt="吹き出しの画像"><p>'.$name.'</p></div><div class="balloon"><div class="serif-'.$align.' '.$bg .'"><p>'.$content.'</p></div></div></div>';
+}
+add_shortcode('chat', 'speakFunc');
+
+// 画像枠
+function img_waku_func($atts, $content = null)
+{
+    return '<div class="img-waku">' . $content . '</div>';
+}
+add_shortcode('jin-img-waku', 'img_waku_func');
+
+// ブログカード
+function nlink_scode($atts)
+{
+    extract(shortcode_atts(array(
+'url'=>"",
+'title'=>"",
+'excerpt'=>""
+), $atts));
+
+    $id = url_to_postid($url);//URLから投稿IDを取得
+
+    $no_image = '';//アイキャッチ画像がない場合の画像を指定
+
+    //タイトルを取得
+    if (empty($title)) {
+        $title = esc_html(get_the_title($id));
+    }
+    //抜粋文を取得
+    if (empty($excerpt)) {
+        $excerpt = esc_html(get_the_excerpt($id));
+    }
+
+    //アイキャッチ画像を取得
+    if (has_post_thumbnail($id)) {
+        $img = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'medium');
+        $img_tag = "<img src='" . $img[0] . "' alt='{$title}'/>";
+    } else {
+        $img_tag ='<img src="'.$no_image.'" alt="" width="'.$img_width.'" height="'.$img_height.'" />';
+    }
+
+    $nlink .='
+<div class="blog-card">
+<a href="'. $url .'">
+<div class="blog-card-thumbnail">'. $img_tag .'</div>
+<div class="blog-card-content">
+<div class="blog-card-title">'. $title .' </div>
+<div class="blog-card-excerpt">'. $excerpt .'</div>
+</div>
+<div class="clear"></div>
+</a>
+</div>';
+
+    return $nlink;
+}
+
+add_shortcode("nlink", "nlink_scode");
+
+// チェックマーク
+function checkFunck($atts)
+{
+    extract(shortcode_atts(array(
+        'size' => 'lg',
+    ), $atts));
+     
+    return '<i class="fas fa-check faa-pulse animated fa-'.$size.' check-blue"></i>';
+}
+add_shortcode('check', 'checkFunck');
+
+
+
+/*********************
+OGPタグ/Twitterカード設定を出力
+*********************/
+function my_meta_ogp()
+{
+    if (is_front_page() || is_home() || is_singular()) {
+        global $post;
+        $ogp_title = '';
+        $ogp_descr = '';
+        $ogp_url = '';
+        $ogp_img = '';
+        $insert = '';
+        $ogp_img = get_template_directory_uri();
+
+        if (is_singular()) { //記事＆固定ページ
+            setup_postdata($post);
+            $ogp_title = $post->post_title;
+            $ogp_descr = mb_substr(get_the_excerpt(), 0, 100);
+            $ogp_url = get_permalink();
+            wp_reset_postdata();
+        } elseif (is_front_page() || is_home()) { //トップページ
+            $ogp_title = get_bloginfo('name');
+            $ogp_descr = get_bloginfo('description');
+            $ogp_url = home_url();
+        }
+
+        //og:type
+        $ogp_type = (is_front_page() || is_home()) ? 'website' : 'article';
+
+        //og:image
+        if (is_singular() && has_post_thumbnail()) {
+            $ps_thumb = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
+            $ogp_img = $ps_thumb[0];
+        } else {
+            $ogp_img = $ogp_img.'/images/no-image.jpg';
+        }
+
+        //出力するOGPタグをまとめる
+        $insert .= '<meta property="og:title" content="'.esc_attr($ogp_title).'" />' . "\n";
+        $insert .= '<meta property="og:description" content="'.esc_attr($ogp_descr).'" />' . "\n";
+        $insert .= '<meta property="og:type" content="'.$ogp_type.'" />' . "\n";
+        $insert .= '<meta property="og:url" content="'.esc_url($ogp_url).'" />' . "\n";
+        $insert .= '<meta property="og:image" content="'.esc_url($ogp_img).'" />' . "\n";
+        $insert .= '<meta property="og:site_name" content="'.esc_attr(get_bloginfo('name')).'" />' . "\n";
+        $insert .= '<meta name="twitter:card" content="summary_large_image" />' . "\n";
+        $insert .= '<meta name="twitter:site" content="@shiro_life0" />' . "\n";
+        $insert .= '<meta property="og:locale" content="ja_JP" />' . "\n";
+
+        //facebookのapp_id（設定する場合）
+        $insert .= '<meta property="fb:app_id" content="2608485822815099">' . "\n";
+        //app_idを設定しない場合ここまで消す
+
+        echo $insert;
+    }
+} //END my_meta_ogp
+
+add_action('wp_head', 'my_meta_ogp');//headにOGPを出力

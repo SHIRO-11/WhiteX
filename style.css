@@ -1,33 +1,21 @@
 /*
-Theme Name: Shinobi X
+Theme Name: White X
 Author: SHIRO
 Description: 自分で作った自分専用のテーマである。
-Version: 2.0
+Version: 1.0
 */
 
 body {
-  color: #7b7b7b;
+  color: #6a6a6a;
   font-size: 17px;
 }
 
 p {
-  margin-bottom: 30px;
+  margin-bottom: 65px;
 }
 
 img {
   margin: 30px 0 15px 0;
-}
-
-.blog-body h2 {
-  font-size: 25px;
-  padding: 15px 15px;
-  /*文字周りの余白*/
-  color: #494949;
-  /*文字色*/
-  background: #fffaf4;
-  /*背景色*/
-  border-left: solid 5px #ffaf58;
-  /*左線（実線 太さ 色）*/
 }
 
 .opacity {
@@ -131,7 +119,7 @@ img {
 }
 
 .serif-right {
-  margin: 0px 120px 60px 100px;
+  margin: 0px 120px 60px 60px;
   background: #85e3ff;
   float: right;
 }
@@ -169,7 +157,7 @@ img {
 
 .serif-left {
   display: inline-block;
-  margin: 0px 100px 60px 120px;
+  margin: 0px 60px 60px 120px;
   background: #da9e5b;
 }
 
@@ -210,18 +198,6 @@ img {
   transform: scale(1.1);
 }
 
-#logo #logo-site-title {
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  font-size: 26px;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -40%);
-  -ms-transform: translate(-50%, -50%);
-}
-
 #logo #logo-back-o {
   position: absolute;
   top: 0;
@@ -250,7 +226,7 @@ img {
   text-align: center;
   width: 100%;
   font-size: 26px;
-  top: 60%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -40%);
@@ -259,11 +235,25 @@ img {
 
 #logo p {
   position: absolute;
-  top: 70%;
+  width: 100%;
+  text-align: center;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -40%);
   -webkit-transform: translate(-50%, -30%);
   -ms-transform: translate(-50%, -40%);
+}
+
+#logo p#logo-site-title {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  font-size: 26px;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -40%);
+  -ms-transform: translate(-50%, -50%);
 }
 
 /* ---------------- ヘッダーここまで ----------------*/
@@ -446,7 +436,7 @@ nav {
 }
 
 .fixed-article h2 {
-  padding: 15px 15px 5px 8px;
+  padding: 0px 8px 15px 8px;
   display: inline-block;
   text-align: center;
   line-height: 1.5rem;
@@ -534,6 +524,7 @@ nav {
 .article-content {
   position: relative;
   width: 85%;
+  max-width: 700px;
   display: inline-block;
   margin: 10px 0;
   background-color: #fff;
@@ -584,6 +575,7 @@ nav {
 
 .excerpt p {
   line-height: 2em;
+  margin-bottom: 20px;
 }
 
 /* 続きを読むボタン */
@@ -622,10 +614,9 @@ nav {
   transform: scale(1.02);
 }
 
-
 .related-article img {
   width: 100%;
-  height: 56%;
+  margin: 10px 0 10px 0 !important;
 }
 
 .related-article h5 {
@@ -746,7 +737,7 @@ nav {
     position: absolute;
     display: block;
     margin: 0 !important;
-    max-width: 150px;
+    max-width: 200px;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -75%);
@@ -757,17 +748,7 @@ nav {
   #logo h1 {
     position: absolute;
     font-size: 24px;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -45%);
-    -webkit-transform: translate(-50%, -45%);
-    -ms-transform: translate(-50%, -45%);
-  }
-
-  #logo #logo-site-title {
-    position: absolute;
-    font-size: 24px;
-    top: 60%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -45%);
     -webkit-transform: translate(-50%, -45%);
@@ -777,11 +758,21 @@ nav {
   #logo p {
     position: absolute;
     font-size: 16px;
-    top: 75%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -30%);
     -webkit-transform: translate(-50%, -30%);
     -ms-transform: translate(-50%, -30%);
+  }
+
+  #logo p#logo-site-title {
+    position: absolute;
+    font-size: 24px;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    -webkit-transform: translate(-50%, -45%);
+    -ms-transform: translate(-50%, -45%);
   }
 
   /*------------------------------------------------------
@@ -809,7 +800,7 @@ nav {
   }
 
   .fixed-article:hover {
-    width: 480px;
+    width: 85%;
     margin: 20px auto;
     background-color: #fff;
     box-shadow: 0px 0px 20px 5px rgba(75, 75, 75, 0.4);
@@ -818,10 +809,10 @@ nav {
   }
 
   .fixed-article h2 {
-    padding: 15px 15px 5px 8px;
+    padding: 0px 8px 15px 8px;
     line-height: 1.5rem;
     text-align: left;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
   }
 
@@ -895,7 +886,6 @@ nav {
     margin-bottom: 20px;
   }
 
-
   /* 記事の詳細ページ */
   .show-main-article {
     width: 100%;
@@ -915,6 +905,7 @@ nav {
 ------------------------------------------------------*/
   .side-bar {
     width: 100%;
+    max-width: 100%;
     display: block;
     background-color: azure;
   }
@@ -1078,6 +1069,51 @@ nav {
     display: block;
     margin: 0 auto;
   }
+
+  .serif-left {
+    display: inline-block;
+    margin: 0px 0px 60px 90px;
+    background: #da9e5b;
+  }
+
+  .serif-right {
+    margin: 0px 90px 60px 0px;
+    background: #85e3ff;
+    float: right;
+  }
+
+  .balloon-simple .icon-left img {
+    margin: 0 0 15px 0;
+    display: block;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+  }
+
+  .balloon-simple .icon-right img {
+    border: solid 4px #85e3ff;
+    margin: 0 20px 15px 50px;
+    display: block;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+  }
+
+  .icon-left p {
+    text-align: left;
+    top: -10px;
+    position: relative;
+    margin: 0;
+  }
+
+  .icon-right p {
+    text-align: right;
+    top: -10px;
+    position: relative;
+    margin: 0;
+  }
+
+
 }
 
 /*------------------------------------------------------
@@ -1094,7 +1130,7 @@ nav {
     position: absolute;
     display: block;
     margin: 0 !important;
-    max-width: 100px;
+    max-width: 150px;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -60%);
@@ -1105,17 +1141,7 @@ nav {
   #logo h1 {
     position: absolute;
     font-size: 18px;
-    top: 68%;
-    left: 50%;
-    transform: translate(-50%, -32%);
-    -webkit-transform: translate(-50%, -32%);
-    -ms-transform: translate(-50%, -32%);
-  }
-
-  #logo #logo-site-title {
-    position: absolute;
-    font-size: 18px;
-    top: 68%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -32%);
     -webkit-transform: translate(-50%, -32%);
@@ -1124,12 +1150,22 @@ nav {
 
   #logo p {
     position: absolute;
-    top: 80%;
+    top: 75%;
     left: 50%;
     font-size: 14px;
     transform: translate(-50%, -20%);
     -webkit-transform: translate(-50%, -20%);
     -ms-transform: translate(-50%, -20%);
+  }
+
+  #logo p#logo-site-title {
+    position: absolute;
+    font-size: 18px;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -32%);
+    -webkit-transform: translate(-50%, -32%);
+    -ms-transform: translate(-50%, -32%);
   }
 
   /*------------------------------------------------------
@@ -1146,7 +1182,7 @@ nav {
   }
 
   .fixed-article {
-    width: 280px;
+    width: 85%;
     margin: 20px auto;
     background-color: #fff;
     transition: all 1s;
@@ -1165,10 +1201,10 @@ nav {
   }
 
   .fixed-article h2 {
-    padding: 15px 15px 5px 8px;
+    padding: 0px 8px 15px 8px;
     line-height: 1.5rem;
     text-align: left;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
   }
 
@@ -1208,19 +1244,6 @@ nav {
 
   /*------------------------------------------------------
 投稿ここまで
-------------------------------------------------------*/
-
-  /*------------------------------------------------------
- サイドバーここから
-------------------------------------------------------*/
-  .side-bar {
-    width: 100%;
-    display: block;
-    background-color: azure;
-  }
-
-  /*------------------------------------------------------
- サイドバーここまで
 ------------------------------------------------------*/
   /*------------------------------------------------------
  メディアクエリ 480pxここまで

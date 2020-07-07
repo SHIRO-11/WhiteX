@@ -19,7 +19,7 @@
         <div class="fixed-article">
             <a href="<?php echo get_permalink($content_1->ID);?>">
                 <?php if (get_the_post_thumbnail_url($content_1->ID) != false): ?>
-                <img src=" <?php echo get_the_post_thumbnail_url($content_1->ID); ?>"
+                <img src=" <?php echo get_the_post_thumbnail_url($content_1->ID, array( 780, 468 )); ?>"
                     alt="固定記事のサムネイル1" />
                 <?php else: ?>
                 <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.jpg"
@@ -34,7 +34,7 @@
         <div class="fixed-article">
             <a href="<?php echo get_permalink($content_2->ID);?>">
                 <?php if (get_the_post_thumbnail_url($content_2->ID) != false): ?>
-                <img src="<?php echo get_the_post_thumbnail_url($content_2->ID); ?>"
+                <img src="<?php echo get_the_post_thumbnail_url($content_2->ID, array( 780, 468 )); ?>"
                     alt="固定記事のサムネイル2" />
                 <?php else: ?>
                 <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.jpg"
@@ -49,7 +49,7 @@
         <div class="fixed-article">
             <a href="<?php echo get_permalink($content_3->ID);?>">
                 <?php if (get_the_post_thumbnail_url($content_3->ID) != false): ?>
-                <img src="<?php echo get_the_post_thumbnail_url($content_3->ID); ?>"
+                <img src="<?php echo get_the_post_thumbnail_url($content_3->ID, array( 780, 468 )); ?>"
                     alt="固定記事のサムネイル3" />
                 <?php else: ?>
                 <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.jpg"

@@ -23,21 +23,24 @@
     <title><?php wp_title('|', true, 'right'); //ページタイトルを出力?><?php bloginfo('name'); //サイト名を表示?>
     </title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
     <link rel="stylesheet"
         href="<?php echo get_stylesheet_uri(); echo '?' . filemtime(get_stylesheet_directory() . '/style.css'); ?>"
         type="text/css" />
     <link rel="stylesheet"
-        href="<?php echo get_template_directory_uri(); ?>/css/destyle.css" />
+        href="<?php echo get_template_directory_uri(); ?>/css/destyle.css?<?php echo date('Ymd-Hi'); ?>" />
     <link rel="stylesheet"
-        href="<?php echo get_template_directory_uri(); ?>/css/single.css" />
+        href="<?php echo get_template_directory_uri(); ?>/css/single.css?<?php echo date('Ymd-Hi'); ?>" />
     <link rel="stylesheet"
-        href="<?php echo get_template_directory_uri(); ?>/css/footer-1.css" />
+        href="<?php echo get_template_directory_uri(); ?>/css/blog-body-design.css?<?php echo date('Ymd-Hi'); ?>" />
     <link rel="stylesheet"
-        href="<?php echo get_template_directory_uri(); ?>/css/sidebar.css" />
+        href="<?php echo get_template_directory_uri(); ?>/css/footer-1.css?<?php echo date('Ymd-Hi'); ?>" />
+    <link rel="stylesheet"
+        href="<?php echo get_template_directory_uri(); ?>/css/sidebar.css?<?php echo date('Ymd-Hi'); ?>" />
     <?php wp_head(); //wp_headはテーマの</head>タグ直前に必ず挿入します?>
     <!-- fontawsomeを読み込む -->
     <script src="https://kit.fontawesome.com/e9f491b3f6.js" crossorigin="anonymous"></script>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 
 <body class="opacity">
