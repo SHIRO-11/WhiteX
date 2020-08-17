@@ -129,9 +129,7 @@ sup {
      # Forms
      # ================================================================= */
 
-input {
-    border-radius: 0;
-}
+
 
 /* Replace pointer cursor in disabled elements */
 [disabled] {
@@ -156,21 +154,6 @@ input {
     /* Remove the inner padding in Chrome and Safari on macOS */
 }
 
-textarea {
-    overflow: auto;
-    /* Internet Explorer 11+ */
-    resize: vertical;
-    /* Specify textarea resizability */
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-    font: inherit;
-    /* Specify font inheritance of form elements */
-}
 
 optgroup {
     font-weight: bold;
@@ -222,15 +205,6 @@ html [type="button"],
 [type="submit"] {
     -webkit-appearance: button;
     /* Correct the inability to style clickable types in iOS */
-}
-
-/* Remove the default button styling in all browsers */
-button,
-input,
-select,
-textarea {
-    background-color: transparent;
-    border-style: none;
 }
 
 /* Style select like a standard input */

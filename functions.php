@@ -962,3 +962,28 @@ function my_meta_ogp()
 } //END my_meta_ogp
 
 add_action('wp_head', 'my_meta_ogp');//headにOGPを出力
+
+
+/*
+WordPress管理画面の投稿一覧に記事の文字数を表示する方法
+*/
+function add_wordcount_columns($columns)
+{
+    $columns['count'] = "文字数";
+    return $columns;
+}
+function add_wordcountview_columns($column_name, $post_id)
+{
+    if ($column_name == 'count') {
+        $content = get_post_field('post_content', $post_id);
+        $content = strip_tags($content);
+        $count = mb_strlen($content);
+    }
+    if (isset($count)) {
+        echo $count;
+    } else {
+        echo __('None');
+    }
+}
+add_filter('manage_posts_columns', 'add_wordcount_columns');
+add_action('manage_posts_custom_column', 'add_wordcountview_columns', 10, 2);
